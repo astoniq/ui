@@ -1,0 +1,19 @@
+{
+  "extends": "tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "dist",
+    "declarationMap": true
+  },
+  "include": ["src/**/*.ts*"],
+  "exclude": [
+    "node_modules",
+    "src/**/*.test.ts*",
+    "src/**/*.spec.ts*",
+    "src/**/*.e2e.ts*",
+    "src/**/*.e2e-playground.ts*",
+    "src/**/*.stories.ts*",
+    "src/testing/",
+    "src/storybook"
+  ]
+}

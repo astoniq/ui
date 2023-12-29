@@ -1,0 +1,29 @@
+{
+  "extends": "tsconfig.build.json",
+  "compilerOptions": {
+    "jsx": "react",
+    "baseUrl": ".",
+    "plugins": [
+      {
+        "name": "typescript-plugin-css-modules",
+        "options": {
+          "classnameTransform": "asIs",
+          "customMatcher": "\\.module\\.css$"
+        }
+      }
+    ]
+  },
+  "include": [
+    "src/**/*.ts*",
+    "src/**/*.js",
+    ".storybook/**/*.ts*",
+    "**/*.config.js",
+    "*.config.*.js",
+    "*.setup.js",
+    ".eslintrc.js",
+    "playwright-ct.config.ts",
+    "playwright/index.tsx",
+    "scripts/*.js"
+  ],
+  "files": ["./global.d.ts", "types/env.d.ts"]
+}

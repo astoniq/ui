@@ -1,0 +1,11 @@
+.Tappable {
+    isolation: isolate;
+    position: relative;
+    border-radius: var(--vkui--size_border_radius--regular);
+}
+
+.Tappable > * {
+    position: relative;
+    z-index: var(--vkui_internal--z_index_tappable_element);
+}
+
