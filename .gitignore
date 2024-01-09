@@ -1,6 +1,6 @@
 # Project
 PUBLISHING.md
-
+.env
 # Builds
 dist/
 storybook-static/

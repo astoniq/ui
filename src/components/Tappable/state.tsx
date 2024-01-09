@@ -1,5 +1,5 @@
 import {LiteralUnion} from "../../types";
-import styles from "*.module.css";
+import styles from "./Tappable.module.css";
 
 type StateMode = 'opacity' | 'background' | 'none';
 export type StateModeLiteral = LiteralUnion<StateMode, string>;

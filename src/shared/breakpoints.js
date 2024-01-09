@@ -100,7 +100,7 @@ const MEDIA_QUERIES = {
     MOBILE_LANDSCAPE_HEIGHT: heightPlus(BREAKPOINTS.MOBILE_LANDSCAPE_HEIGHT),
 };
 
-module.exports = {
+export {
     BREAKPOINTS,
     MEDIA_QUERIES,
     widthHalfInterval,

@@ -1,14 +1,19 @@
-import {ConfigProviderContext, ConfigProviderContextInterface} from "./ConfigProviderContext";
+import {ConfigProviderContext, ConfigProviderContextInterface, useConfigProvider} from "./ConfigProviderContext";
 import * as React from "react";
 import {useAutoDetectAppearance} from "../../hooks/useAutoDetectAppearance";
 import {useObjectMemo} from "../../hooks/useObjectMemo";
 import {TokensClassProvider} from "../TokenClassProvider/TokenClassProvider";
+import {excludeKeysWithUndefined} from "../../utils/utils";
 
 export interface ConfigProviderProps extends Partial<ConfigProviderContextInterface> {
     children: React.ReactNode
 }
 
-export const ConfigProvider = (props: ConfigProviderProps) => {
+export const ConfigProvider = (propsRaw: ConfigProviderProps) => {
+
+    const props = excludeKeysWithUndefined(propsRaw);
+    const parentConfig = useConfigProvider();
+
 
     const {
         appearance: appearanceProp,
@@ -16,7 +21,10 @@ export const ConfigProvider = (props: ConfigProviderProps) => {
         tokensClassNames,
         platform,
         locale
-    } = props
+    } =  {
+        ...parentConfig,
+        ...props,
+    };
 
     const appearance = useAutoDetectAppearance(appearanceProp);
 
