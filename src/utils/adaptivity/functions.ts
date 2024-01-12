@@ -9,6 +9,7 @@ import {
 } from "./constants";
 import {CSSBreakpointsClassNames, MediaQueries} from "./types";
 import {Exact} from "../../types";
+import {PlatformType} from "../platform";
 
 
 export function getViewWidthByViewportWidth(viewportWidth: number) {
@@ -121,4 +122,43 @@ export function viewWidthToClassName<T extends Partial<CSSBreakpointsClassNames>
     }
 
     return breakpoints.length > 0 ? breakpoints.join(' ') : null;
+}
+
+/**
+ * Проверка на Desktop.
+ *
+ * Функция гарантировано вернёт `boolean` или `null` в зависимости от условий.
+ *
+ * Возвращаем `null` в случае, если у нас недостаточно данных, чтобы определить платформу.
+ *
+ * ⚠️ При передаче 'vkcom' всегда будет возвращать `true`.
+ */
+export function tryToCheckIsDesktop(viewWidth: ViewWidthType, viewHeight: ViewHeightType, hasPointer: undefined | boolean, platform?: PlatformType): boolean; // prettier-ignore
+export function tryToCheckIsDesktop(viewWidth: ViewWidthType, viewHeight: undefined, hasPointer: boolean, platform?: PlatformType): boolean; // prettier-ignore
+export function tryToCheckIsDesktop(viewWidth: undefined | ViewWidthType, viewHeight: undefined, hasPointer: undefined, platform?: PlatformType): null; // prettier-ignore
+export function tryToCheckIsDesktop(viewWidth: undefined, viewHeight: undefined | ViewHeightType, hasPointer: undefined, platform?: PlatformType): null; // prettier-ignore
+export function tryToCheckIsDesktop(viewWidth: undefined, viewHeight: undefined, hasPointer: undefined | boolean, platform?: PlatformType): null; // prettier-ignore
+export function tryToCheckIsDesktop(viewWidth: undefined | ViewWidthType, viewHeight: undefined | ViewHeightType, hasPointer: undefined | boolean, platform?: PlatformType): null | boolean; // prettier-ignore
+export function tryToCheckIsDesktop(
+    viewWidth: undefined | ViewWidthType,
+    viewHeight: undefined | ViewHeightType,
+    hasPointer: undefined | boolean,
+    platform?: PlatformType,
+): null | boolean {
+    // см. https://github.com/VKCOM/VKUI/pull/2473
+    const IS_VKCOM_CRUTCH = platform === 'web';
+
+    if (
+        ((viewWidth === undefined || hasPointer === undefined) &&
+            (viewWidth === undefined || viewHeight === undefined)) ||
+        (hasPointer === undefined && viewHeight === undefined)
+    ) {
+        return IS_VKCOM_CRUTCH ? true : null;
+    }
+
+    const widthIsLikeDesktop = viewWidth >= ViewWidth.SMALL_TABLET;
+    const otherParametersIsLikeDesktop =
+        hasPointer || (viewHeight !== undefined ? viewHeight >= ViewHeight.MEDIUM : false);
+
+    return (widthIsLikeDesktop && otherParametersIsLikeDesktop) || IS_VKCOM_CRUTCH;
 }

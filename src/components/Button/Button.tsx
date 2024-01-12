@@ -78,7 +78,7 @@ export const Button = ({
     const hasIconOnly = !children && Boolean(after) !== Boolean(before);
     const {sizeY = 'none'} = useAdaptivity();
     const platform = usePlatform();
-    console.log(platform)
+
     return (
         <Tappable
             hoverMode={styles['Button--hover']}

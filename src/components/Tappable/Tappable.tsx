@@ -1,4 +1,4 @@
-import { Clickable, ClickableProps} from "../Clickable/Clickable";
+import {Clickable, ClickableProps} from "../Clickable/Clickable";
 import {activeClass, DEFAULT_STATE_MODE, hoverClass, StateProps} from "./state";
 import {useAdaptivity} from "../../hooks/useAdaptivity";
 import {mergeCalls} from "../../utils/mergeCalls";
@@ -27,6 +27,7 @@ function hasPointerClassName(hasPointer: boolean | undefined) {
         case false:
             return styles['Tappable--hasPointer-false']
     }
+    return undefined
 }
 
 export const Tappable = ({
@@ -59,6 +60,8 @@ export const Tappable = ({
             hoverClassName={hoverClass(hoverMode)}
             activeClassName={activeClass(activeMode)}
             {...handlers}
-            {...restProps}>{children}</Clickable>
+            {...restProps}>
+            {children}
+        </Clickable>
     )
 }

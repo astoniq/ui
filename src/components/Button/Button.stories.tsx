@@ -28,7 +28,7 @@ type Story = StoryObj<Omit<StoryButtonProps, 'before' | 'after'>>;
 export const Playground: Story = {
     render: ({ addBefore, addAfter, ...args }) => {
 
-        return <Button {...args} />;
+        return <Button onClick={() => console.log('hello')} {...args} />;
     },
     args: {
         children: 'Button',
